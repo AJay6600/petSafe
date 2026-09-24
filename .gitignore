@@ -1,0 +1,23 @@
+# Node / Frontend Dependencies & Builds
+node_modules/
+frontend/node_modules/
+dist/
+frontend/dist/
+build/
+.env
+frontend/.env
+*.log
+
+# Java / Maven Builds
+target/
+backend/target/
+*.class
+*.jar
+*.war
+
+# IDE & OS files
+.DS_Store
+.vscode/
+.idea/
+*.swp
+*.swo
