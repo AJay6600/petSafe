@@ -12,7 +12,7 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * Global CORS Configuration allowing Vite React frontend calls from any localhost port.
+ * Global CORS Configuration allowing Vite React frontend calls from localhost & Vercel deployment domains.
  */
 @Configuration
 public class CorsConfig {
@@ -20,7 +20,12 @@ public class CorsConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOriginPatterns(List.of("http://localhost:*", "http://127.0.0.1:*"));
+        configuration.setAllowedOriginPatterns(List.of(
+            "http://localhost:*", 
+            "http://127.0.0.1:*",
+            "https://*.vercel.app",
+            "https://*.onrender.com"
+        ));
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS", "HEAD"));
         configuration.setAllowedHeaders(List.of("*"));
         configuration.setAllowCredentials(true);
@@ -36,7 +41,12 @@ public class CorsConfig {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**")
-                        .allowedOriginPatterns("http://localhost:*", "http://127.0.0.1:*")
+                        .allowedOriginPatterns(
+                            "http://localhost:*", 
+                            "http://127.0.0.1:*",
+                            "https://*.vercel.app",
+                            "https://*.onrender.com"
+                        )
                         .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
                         .allowedHeaders("*")
                         .allowCredentials(true);
