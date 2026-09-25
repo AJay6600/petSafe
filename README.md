@@ -13,21 +13,11 @@
 
 > Watch how PetSafe turns any smartphone into an instant rescue tool.
 
-<div align="center">
-  <!-- Direct MP4 Video file in repo (Place video in assets/demo.mp4) -->
-  <video src="assets/demo.mp4" width="100%" controls poster="assets/thumbnail.png">
-    Your browser does not support playing this video.
-  </video>
+https://github.com/AJay6600/petSafe/raw/main/assets/demo.mp4
 
-  <br />
+<video src="https://github.com/AJay6600/petSafe/raw/main/assets/demo.mp4" controls="controls" style="max-width: 100%;">
+</video>
 
-  <!-- YouTube / External Link Fallback (Uncomment and replace YOUR_VIDEO_ID) -->
-  <!--
-  <a href="https://www.youtube.com/watch?v=YOUR_VIDEO_ID">
-    <img src="https://img.youtube.com/vi/YOUR_VIDEO_ID/maxresdefault.jpg" alt="Watch PetSafe Demo Video" width="100%" />
-  </a>
-  -->
-</div>
 
 ---
 
