@@ -11,6 +11,7 @@ import org.apache.pdfbox.pdmodel.PDPageContentStream;
 import org.apache.pdfbox.pdmodel.font.PDType1Font;
 import org.apache.pdfbox.pdmodel.font.Standard14Fonts;
 import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.io.ByteArrayOutputStream;
@@ -24,7 +25,19 @@ import java.util.List;
 @Service
 public class QrService {
 
-    private static final String FRONTEND_BASE_URL = "http://localhost:5173/pet/";
+    @Value("${frontend.base.url:http://localhost:5173}")
+    private String frontendBaseUrl;
+
+    private String getScanUrl(String qrToken) {
+        String base = frontendBaseUrl.trim();
+        if (!base.endsWith("/")) {
+            base += "/";
+        }
+        if (base.endsWith("/pet/")) {
+            return base + qrToken;
+        }
+        return base + "pet/" + qrToken;
+    }
 
     /**
      * Generates a 300x300 QR Code PNG image encoded as a Base64 Data URI.
@@ -34,7 +47,8 @@ public class QrService {
             throw new IllegalArgumentException("QR token cannot be null or empty.");
         }
 
-        String scanUrl = FRONTEND_BASE_URL + qrToken;
+        String scanUrl = getScanUrl(qrToken);
+
 
         try {
             QRCodeWriter qrCodeWriter = new QRCodeWriter();
@@ -84,7 +98,7 @@ public class QrService {
                 for (Pet pet : pets) {
                     if (pet.getQrToken() == null) continue;
 
-                    String scanUrl = FRONTEND_BASE_URL + pet.getQrToken();
+                    String scanUrl = getScanUrl(pet.getQrToken());
                     BitMatrix bitMatrix = qrCodeWriter.encode(scanUrl, BarcodeFormat.QR_CODE, 150, 150);
                     ByteArrayOutputStream imageBytesStream = new ByteArrayOutputStream();
                     MatrixToImageWriter.writeToStream(bitMatrix, "PNG", imageBytesStream);
